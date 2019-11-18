@@ -1,12 +1,11 @@
 var mysql = require('mysql');
+var fs = require('fs');
 
+var sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
 
-const connection = mysql.createConnection({
-  host     : '47.89.12.106',
-  user     : 'root',
-  password : '123456',
-  database : 'db_baixiaotu'
-});
+console.log(sql_config)
+
+const connection = mysql.createConnection(sql_config);
 
 
 connection.connect();
