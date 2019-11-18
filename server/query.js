@@ -1,12 +1,10 @@
 var mysql = require('mysql');
 var fs = require('fs');
 
-var sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
-
-console.log(sql_config)
+// 加载mysql验证文件
+const sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
 
 const connection = mysql.createConnection(sql_config);
-
 
 connection.connect();
 
