@@ -1,13 +1,22 @@
 var mysql = require('mysql');
 var fs = require('fs');
 
-// 加载mysql验证文件
+/** 加载mysql验证文件
+ {
+    "host"     : "",
+    "user"     : "",
+    "password" : "",
+    "database" : ""
+ }
+ */
 const sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
 
+// 建立连接
 const connection = mysql.createConnection(sql_config);
 
 connection.connect();
 
+// 查询首页数据
 exports.queryMainList = function(req, res) {
 
     var data = []
@@ -24,9 +33,9 @@ exports.queryMainList = function(req, res) {
                 items.push(item)
             }
             data.push({
-                items: items,
                 title: "影视剧集",
-                type: 0
+                type: 0,
+                items,
             })
             calcCount()
         }
@@ -38,9 +47,9 @@ exports.queryMainList = function(req, res) {
             res.jsonp(reponse(error.code, error.message, []));
         }else {
             data.push({
-                items: results,
                 title: "影视剪辑",
-                type: 1
+                type: 1,
+                items: results,
             })
             calcCount()
         }
@@ -58,12 +67,10 @@ exports.queryMainList = function(req, res) {
 
 }
 
+
 exports.notFound = function(req, res) {
     res.jsonp(reponse(404, req.path + ' not found', null))
 }
-
-
-
 
 
 function reponse(code, message, data) {
