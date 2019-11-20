@@ -1,30 +1,51 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="content-wapper">
-    <view class="search-wapper">
-      <view class="search" bindtap="onSearchClick">
+  <view class="search-wapper">
+    <view class="search" bindtap="onSearchClick">
       <image src="https://i.loli.net/2019/11/18/7CxwLm9aPzgWMuU.png" />
       搜索
     </view>
-    </view>
-    <view wx:for="{{ mainData }}" class="main-wapper" wx:key="mainlist" wx:for-item="listItem">
-      <view class="title-wapper">
-        <view class="left">
-          {{ listItem.title }}
-        </view>
-        <view class="right" bindtap="onShowMore" data-type="{{ listItem.type }}">
-          <view>查看全部</view>
-          <view class="right-row"></view>
-        </view>
-      </view>
-      <view class="list-wapper list-wapper-{{ listItem.type }}">
-        <view class="item-wapper" wx:for="{{ listItem.items }}" wx:key="items">
-          <image src="{{ item.cover_url }}" mode="aspectFill" />
-          <view class="title">{{ item.title }}</view>
-        </view>
-        <!-- <view class="view-all">查看全部</view> -->
+  </view>
+
+  <view 
+    wx:for="{{ mainData }}" 
+    class="main-wapper" 
+    wx:key="mainlist" 
+    wx:index="typeIndex" 
+    wx:for-item="listItem"
+  >
+    <view class="title-wapper">
+      <view class="left">{{ listItem.title }}</view>
+      <view class="right" bindtap="onShowMore" data-type="{{ listItem.type }}">
+        <view>查看全部</view>
+        <view class="right-row"></view>
       </view>
     </view>
+    <view class="list-wapper list-wapper-{{ listItem.type }}">
+      <view 
+        class="item-wapper" 
+        wx:for="{{ listItem.items }}" 
+        data-type="{{ listItem.type }}" 
+        data-index="{{ index }}" 
+        bindtap="onItemClick" 
+        wx:key="items"
+      >
+        <image src="{{ item.cover_url }}" mode="aspectFill" />
+        <view class="title-wapper">
+          <view class="left">{{ item.title }}</view>
+          <view class="right">
+            <image src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
+            <view>{{ item.visits_count }}</view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  
+
+  <view class="footer-wapper">
+    <a bindtap="jumpToAbout">关于本程序</a>
   </view>
 
 </view>

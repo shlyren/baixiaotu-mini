@@ -1,0 +1,65 @@
+/* pages/about/about.wxss */
+
+.container {
+  display:  flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.build {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30rpx 0;
+}
+
+.build image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 200rpx;
+}
+.build .name {
+  display: flex;
+  align-items: flex-end;
+}
+
+.build .name .version {
+  margin-left: 10rpx;
+  font-size: 24rpx; 
+}
+
+.build .copyright {
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+
+.illustrate {
+  padding: 10rpx 20rpx 20rpx;
+}
+
+.title {
+  text-align: center;
+  font-size: 34rpx;
+}
+
+.illustrate .content {
+  font-size: 28rpx;
+  text-indent: 56rpx;
+}
+.divider {
+  margin: 20rpx 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.actions view {
+  width: calc(calc(100% / 4) - 10rpx);
+  margin: 25rpx 5rpx;
+  color: #32CD32;
+  text-align: center;
+}

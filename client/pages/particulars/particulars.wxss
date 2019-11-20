@@ -1,0 +1,52 @@
+/* pages/particulars/particulars.wxss */
+
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+.top-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  text-align: center;
+  font-size: 44rpx;
+  margin: 20rpx;
+}
+
+.content-wrapper .title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  background: #e8e8e8;
+  padding: 10rpx 15rpx;
+  align-items: center
+}
+
+.content-wrapper .title-wrapper .name {
+  font-size: 32rpx;
+}
+
+.content-wrapper .title-wrapper .copy {
+  color: #32CD32;
+  font-size: 28rpx;
+}
+
+
+.content-wrapper .content {
+  padding: 10rpx 15rpx;
+  height: auto;  
+  word-wrap:break-word;  
+  word-break:break-all;  
+  overflow: hidden; 
+  font-size: 28rpx;
+}
+
+.feedback {
+  margin: 30rpx 20rpx;
+}

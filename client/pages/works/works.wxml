@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="item-wapper" wx:for="{{ items }}" wx:key="mainlist">
+    <view class="content" data-index="{{ index }}" bindtap="onItemClick">
+      <image mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
+      <view>
+        <view class="title">{{ item.title }}</view>
+        <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>
+        <view>B站是否可观看：{{ (item.bilibili_link || item.bili_link) == null ? "否" : "是"  }}</view>
+        <view>网盘是否有资源：{{ item.baidu_link == null ? "否" : "是" }}</view>
+        <view class="visits">
+          <image class="logo" src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
+          <view>{{ item.visits_count }}</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ index < items.length - 1 }}" class="divider"></view>
+  </view>
+</view>
