@@ -1,12 +1,6 @@
 // pages/about/about.js
 Page({
 
-  /**
-   * 页面的初始数据
-   * github: 'https://github.com/shlyren/baixiaotu-mini',
-    bilibili: 'https://space.bilibili.com/20427061',
-    mail: 'mailto:mail@yuxiang.ren'
-   */
   data: {
     links: [
       {

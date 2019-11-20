@@ -8,7 +8,11 @@ Page({
   },
   // 页面加载完成后
   onLoad: function () {
-    this.loadMainData(this.handleMainData);
+    const self = this
+    this.loadMainData(this.updateData);
+  },
+  updateData: function (mainData) {
+    this.setData({ mainData })
   },
   onSearchClick: function (e) {
     wx.navigateTo({
@@ -43,18 +47,19 @@ Page({
       url: 'https://api-cc.yuxiang.ren/mainlist',
       method: 'GET',
       success: function(res) {
+        wx.hud.hide()
         if (typeof callback == "function") {
-          const { data: { data: mainData } } = res
-          wx.hud.hide()
-          callback(mainData)
+          const { data: mainData, code, message } = res.data
+          if (code == 200) {
+            callback(mainData)
+          }else {
+            wx.hud.error(message)
+          }
         }
       },
       fail: function(res) {
-        wx.hud.error("加载失败")
+        wx.hud.error(res.errMsg)
       },
     })
   },
-  handleMainData: function (mainData) {
-    this.setData({ mainData})
-  }
 })

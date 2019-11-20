@@ -6,6 +6,9 @@
   height: 100%;
 }
 
+.top {
+  flex-grow: 1;
+}
 
 .build {
   display: flex;
@@ -29,9 +32,10 @@
   font-size: 24rpx; 
 }
 
-.build .copyright {
+.copyright {
   font-size: 26rpx;
-  margin-top: 10rpx;
+  text-align: center;
+  margin-bottom: 10rpx;
 }
 
 

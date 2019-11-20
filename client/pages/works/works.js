@@ -12,16 +12,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.onLoadListData(options, this.handleListData)
+    const self = this;
+    this.onLoadListData(options, items => {
+      this.setData({ items })  
+    })
   },
   onLoadListData: function (options, callback) {
+
     wx.request({
       url: 'https://api-cc.yuxiang.ren/workslist',
       data: options,
       method: 'GET',
       success: function(res) {
-        if (typeof callback == "function") {
-          const { data: { data: items } } = res
+        
+        const { data: items, code, message } = res.data
+        
+        if (code != 200) {
+          wx.hud.error(message)
+        } else {
           callback(items)
         }
       },
@@ -29,9 +37,6 @@ Page({
         wx.hud.error("加载失败")
       },
     })
-  },
-  handleListData: function (items) {
-    this.setData({ items})
   },
   onItemClick: function(e) {
     const index = e.currentTarget.dataset.index

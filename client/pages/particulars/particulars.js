@@ -77,7 +77,7 @@ Page({
   feedback: function(e) {
     const { data: item } = this.data;
     wx.navigateTo({
-      url: '/pages/resourceFeedback/index',
+      url: '/pages/resfeed/resfeed',
       success: function (res) {
         res.eventChannel.emit('acceptDataFromOpenerPage', { item })
       }

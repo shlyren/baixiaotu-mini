@@ -1,6 +1,11 @@
 const MySQLPool = require('./MySQLPool');
 const pool = new MySQLPool().getPool();
 const tables = ['t_television', 't_television_cut']
+
+const SUCCESS_CODE = 200; // 成功
+const SQL_ERROR_CODE = 0; // 数据库错误
+const API_ERROR_CODE = -1; // 请求错误
+
 // 查询首页数据
 exports.queryMainList = function(req, res) {
 
@@ -8,12 +13,12 @@ exports.queryMainList = function(req, res) {
 
     pool.getConnection(function (error, connection) {
         if (error) {
-            res.jsonp(reponse(error.code, error.message, []));
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             return;
         }
         connection.query('SELECT * FROM t_television order by visits_count desc limit 6;', function (error, results, fields) {
             if (error != null) {
-                res.jsonp(reponse(error.code, error.message, []));
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             }else {
                 var items = []
                 for (i in results) {
@@ -36,7 +41,7 @@ exports.queryMainList = function(req, res) {
         connection.query('SELECT * FROM t_television_cut order by visits_count desc limit 6;', function (error, results, fields) {
     
             if (error != null) {
-                res.jsonp(reponse(error.code, error.message, []));
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             }else {
                 data[1] = {
                     title: "影视剪辑",
@@ -50,7 +55,7 @@ exports.queryMainList = function(req, res) {
         function calcCount() {
             count++
             if (count == 2) {
-                res.jsonp(reponse(1, "请求成功", data))
+                res.jsonp(reponse(SUCCESS_CODE, "请求成功", data))
                 connection.release();
             }
         }
@@ -63,28 +68,27 @@ exports.queryMainList = function(req, res) {
  */
 exports.queryWorksList = function(req, res) {
 
-    const { query: { type } } = req;
+    const { type } = req.query;
     if (!type) {
-        res.jsonp(reponse(0, "缺少 type 参数", null))
+        res.jsonp(reponse(API_ERROR_CODE, "缺少 type 参数", null))
         return;
     }
 
     pool.getConnection(function(error, connection) {
         if (error) {
-            res.jsonp(reponse(error.code, error.message, []));
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             return
         }
         
-        let tableName 
-        = tables[type]
+        const tableName  = tables[type]
         if (!tableName) {
-            res.jsonp(reponse(1, "请求成功", []))
+            res.jsonp(reponse(SUCCESS_CODE, "请求成功", []))
             return;
         }
         connection.query(`SELECT * FROM ${tableName} order by visits_count desc;`, function (error, results, fields) {
     
             if (error != null) {
-                res.jsonp(reponse(error.code, error.message, []));
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             }else {
                 var items = []
                 for (i in results) {
@@ -97,11 +101,9 @@ exports.queryWorksList = function(req, res) {
                         item.bili_link = item.bilibili_link;
                         delete item.bilibili_link;
                     }
-
                     items.push(item)
                 }
-
-                res.jsonp(reponse(1, "请求成功", items));
+                res.jsonp(reponse(SUCCESS_CODE, "请求成功", items));
             }
         });
     })
@@ -112,33 +114,33 @@ exports.updateVisits = function (req, res) {
     const { body: { id, type } } = req;
 
     if( id == undefined || type == undefined || !tables[type] ) {
-        res.jsonp(reponse(0, '参数无效', null))
+        res.jsonp(reponse(API_ERROR_CODE, '参数无效', null))
         return;
     }
 
     pool.getConnection(function(error, connection) {
         if (error) {
-            res.jsonp(reponse(error.code, error.message, null));
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
             return
         }
         
         let tableName  = tables[type]
         if (!tableName) {
-            res.jsonp(reponse(0, "查询不到表", null))
+            res.jsonp(reponse(SQL_ERROR_CODE, "查询不到表", null))
             return;
         }
         connection.query(`SELECT visits_count FROM ${tableName} where id = '${id}';`, function (error, results, fields) {
             if (error) {
-                res.jsonp(reponse(error.code, error.message, null))
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
                 return;
             }
             var { visits_count = 0 } = results[0]
             connection.query(`UPDATE ${tableName} set visits_count = '${++visits_count}' where id = '${id}';`, function (error, results, fields) {
                 if (error) {
-                    res.jsonp(reponse(error.code, error.message, null))
+                    res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
                     return;
                 }
-                res.jsonp(reponse(1, '操作成功', {
+                res.jsonp(reponse(SUCCESS_CODE, '操作成功', {
                     id,
                     type,
                     visits_count
@@ -151,32 +153,27 @@ exports.updateVisits = function (req, res) {
 // 资源反馈
 exports.resourceFeedback = function(req, res) {
 
-    const { body: {name, id, type, message, baidu_link, bili_link, mail } } = req;
+    const { name, resour_id, type, message, baidu_link, bili_link, mail } = req.body;
 
-    if( id == undefined || type == undefined || !tables[type] ) {
-        res.jsonp(reponse(0, '参数无效', null))
+    if (resour_id == undefined || type == undefined || !tables[type]) {
+        res.jsonp(reponse(API_ERROR_CODE, '无效的参数', null))
         return;
     }
 
     pool.getConnection(function(error, connection) {
         if (error) {
-            res.jsonp(reponse(error.code, error.message, null));
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
             return
         }
-        
-        let tableName  = tables[type]
-        if (!tableName) {
-            res.jsonp(reponse(0, "查询不到表", null))
-            return;
-        }
-        connection.query(`INSERT INTO ${tableName} 
-                        ( name, type, id, message, baidu_link, bili_link, mail ) VALUES 
-                        (${name}, ${type}, ${ id }, ${ message }, ${ baidu_link }, ${ bili_link }, ${ mail });`, function (error, results, fields) {
+
+        connection.query(`INSERT INTO t_television_link 
+                        ( name, type, resour_id, message, baidu_link, bili_link, mail ) VALUES 
+                        ('${name}', ${type}, ${ resour_id }, '${ message }', '${ baidu_link }', '${ bili_link }', '${ mail }');`, function (error, results, fields) {
             if (error) {
-                res.jsonp(reponse(error.code, error.message, null))
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
                 return;
             }
-            res.jsonp(reponse(1, '提交成功成功', null))
+            res.jsonp(reponse(SUCCESS_CODE, '提交成功', null))
         });
     })
 }

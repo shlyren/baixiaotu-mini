@@ -4,8 +4,8 @@
     "pages/search/search",
     "pages/works/works",
     "pages/particulars/particulars",
-    "pages/about/about",
-    "pages/resourceFeedback/index"
+    "pages/resfeed/resfeed",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",
