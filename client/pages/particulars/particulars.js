@@ -15,6 +15,10 @@ Page({
         'name': 'B站链接',
         'key': 'bili_link',
         'copyable': true
+      }, {
+        'name': 'B站全集',
+        'key': 'bili_full_link',
+        'copyable': true
       },
       {
         'name': '网盘链接',
@@ -63,15 +67,13 @@ Page({
   copied: function(e) {
     const { key } = e.currentTarget.dataset
     var data = null;
-    if (key == 'bili_link') {
-      data = this.data.data.bili_link
+    if (key == 'bili_link' || key == 'bili_full_link') {
+      data = this.data.data[key]
     } else if (key == 'baidu_link') {
-      data = `链接：${this.data.data.baidu_link}  提取码：${this.data.data.baidu_pwd}`
+      data = `链接：${this.data.data[key]}  提取码：${this.data.data.baidu_pwd}`
     }
     if (!data) return;
-    wx.setClipboardData({
-      data
-    });
+    wx.setClipboardData({ data });
   },
   // 资源反馈
   feedback: function(e) {

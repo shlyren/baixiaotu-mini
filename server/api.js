@@ -16,14 +16,17 @@ app.get('/mainlist', query.queryMainList)
 // 查询作品数据
 app.get('/workslist', query.queryWorksList)
 
+//资源搜索
+app.get('/search', query.querySearch)
+
 // 更新访问量
 app.put('/calculate/visits', jsonParser, query.updateVisits)
 
- //资源失效反馈
+//资源失效反馈
 app.post('/feedback/resource', jsonParser, query.resourceFeedback)
 
 // 404
-app.get('/*', query.notFound)
+app.all('/*', query.notFound)
 
 app.listen(8085, () => {
   console.log('listening on port 8085') 

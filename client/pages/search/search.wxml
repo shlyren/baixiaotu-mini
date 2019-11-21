@@ -1,2 +1,67 @@
-<!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+
+<view>
+  <view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+        <input 
+          type="text" 
+          class="weui-search-bar__input" 
+          placeholder="搜索" 
+          value="{{ inputVal }}" 
+          focus="{{ inputShowed }}" 
+          bindinput="inputTyping"
+          bindconfirm="startSearch"
+          confirm-type="search"
+        />
+        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="hideInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+
+  <view class="container">
+
+    <view class="content-wrapper">
+      <view class="no-data" wx:if="{{ items.length == 0 }}">无搜索结果</view>
+      <view class="result-wrapper" wx:else>
+        <view class="item-wrapper" wx:for="{{ items }}" wx:key="items">
+          <view class="content" data-index="{{ index }}" bindtap="onItemClick">
+            <image webp mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
+            <view>
+              <view class="title">{{ item.title }}</view>
+              <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>
+              <view>B站是否可观看：{{ (item.bilibili_link || item.bili_link) == null ? "否" : "是"  }}</view>
+              <view>网盘是否有资源：{{ item.baidu_link == null ? "否" : "是" }}</view>
+              <view class="visits">
+                <image class="logo" src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
+                <view>{{ item.visits_count }}</view>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{ index < items.length - 1 }}" class="divider"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="footer-wrapper" wx:if="{{ items.length > 0 }}">
+      <view class="page__bd">
+        <view wx:if="{{ loadMore }}" class="weui-loadmore">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载更多</view>
+        </view>
+        <view wx:if="{{ !loadMore && noMoreData }}" class="weui-loadmore weui-loadmore_line">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">无更多数据</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+

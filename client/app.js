@@ -10,6 +10,7 @@ App({
       wx.hud.hide()
       wx.showLoading({ 
         title: loading || '加载中...', 
+        mask: true,
         success: function() {
           if (typeof success != "function") return;
           setTimeout(success, 2000)
@@ -41,6 +42,7 @@ App({
       title,
       icon,
       image,
+      mask: true,
       success: function () {
         if (typeof success != "function") return;
         setTimeout(success, 2000)

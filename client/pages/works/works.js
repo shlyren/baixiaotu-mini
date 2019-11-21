@@ -12,13 +12,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    const title = options.type == 0 ? '影视剧集' : '影视剪辑剪辑';
+
+    wx.setNavigationBarTitle({
+      title: `全部作品 - ${ title }`,
+    })
+
+  
+
     const self = this;
     this.onLoadListData(options, items => {
-      this.setData({ items })  
+      self.setData({ items })  
     })
   },
   onLoadListData: function (options, callback) {
-
+    wx.hud.loading()
     wx.request({
       url: 'https://api-cc.yuxiang.ren/workslist',
       data: options,
@@ -30,6 +39,7 @@ Page({
         if (code != 200) {
           wx.hud.error(message)
         } else {
+          wx.hud.hide()
           callback(items)
         }
       },

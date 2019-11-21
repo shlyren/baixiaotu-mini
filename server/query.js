@@ -13,26 +13,19 @@ exports.queryMainList = function(req, res) {
 
     pool.getConnection(function (error, connection) {
         if (error) {
-            res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
+
+            connection.release();
             return;
         }
         connection.query('SELECT * FROM t_television order by visits_count desc limit 6;', function (error, results, fields) {
             if (error != null) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
             }else {
-                var items = []
-                for (i in results) {
-                    var item = results[i]
-                    item.title = item.name;
-                    delete item.name;
-                    item.bili_link = item.bilibili_link;
-                    delete item.bilibili_link;
-                    items.push(item)
-                }
                 data[0] = {
                     title: "影视剧集",
                     type: 0,
-                    items,
+                    items: results,
                 }
                 calcCount()
             }
@@ -56,9 +49,9 @@ exports.queryMainList = function(req, res) {
             count++
             if (count == 2) {
                 res.jsonp(reponse(SUCCESS_CODE, "请求成功", data))
-                connection.release();
             }
         }
+        connection.release();
     })
 }
 
@@ -77,41 +70,32 @@ exports.queryWorksList = function(req, res) {
     pool.getConnection(function(error, connection) {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
+            connection.release();
             return
         }
         
         const tableName  = tables[type]
         if (!tableName) {
             res.jsonp(reponse(SUCCESS_CODE, "请求成功", []))
+            connection.release();
             return;
         }
         connection.query(`SELECT * FROM ${tableName} order by visits_count desc;`, function (error, results, fields) {
     
             if (error != null) {
-                res.jsonp(reponse(SQL_ERROR_CODE, error.code, []));
-            }else {
-                var items = []
-                for (i in results) {
-                    var item = results[i]
-                    if (!item.title) {
-                        item.title = item.name;
-                        delete item.name;
-                    }
-                    if (!item.bili_link) {
-                        item.bili_link = item.bilibili_link;
-                        delete item.bilibili_link;
-                    }
-                    items.push(item)
-                }
-                res.jsonp(reponse(SUCCESS_CODE, "请求成功", items));
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
+                return;
             }
+            res.jsonp(reponse(SUCCESS_CODE, "请求成功", results));
         });
+
+        connection.release();
     })
 }
 
 // 更新访问量
 exports.updateVisits = function (req, res) {
-    const { body: { id, type } } = req;
+    const { id, type } = req.body;
 
     if( id == undefined || type == undefined || !tables[type] ) {
         res.jsonp(reponse(API_ERROR_CODE, '参数无效', null))
@@ -121,17 +105,20 @@ exports.updateVisits = function (req, res) {
     pool.getConnection(function(error, connection) {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
+            connection.release();
             return
         }
         
         let tableName  = tables[type]
         if (!tableName) {
             res.jsonp(reponse(SQL_ERROR_CODE, "查询不到表", null))
+            connection.release();
             return;
         }
         connection.query(`SELECT visits_count FROM ${tableName} where id = '${id}';`, function (error, results, fields) {
             if (error) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
+                connection.release();
                 return;
             }
             var { visits_count = 0 } = results[0]
@@ -145,6 +132,8 @@ exports.updateVisits = function (req, res) {
                     type,
                     visits_count
                 }))
+
+                connection.release();
             });
         });
     })
@@ -163,6 +152,8 @@ exports.resourceFeedback = function(req, res) {
     pool.getConnection(function(error, connection) {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
+
+            connection.release();
             return
         }
 
@@ -175,7 +166,50 @@ exports.resourceFeedback = function(req, res) {
             }
             res.jsonp(reponse(SUCCESS_CODE, '提交成功', null))
         });
+
+
+        connection.release();
     })
+}
+
+exports.querySearch = function(req, res) {
+    
+    const query = req.query 
+    const name =  query.name || '';
+    const pageNum = parseInt(query.pageNum) || 1;
+    const pageSize = parseInt(query.pageSize) || 10;
+    
+
+    pool.getConnection(function(error, connection) {
+        if (error) {
+            res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
+            connection.release();
+            return
+        }
+
+        
+        const start = (pageNum - 1) * pageSize
+        const end = pageNum * pageSize - 1
+        connection.query(`SELECT * FROM ${tables[0]}, ${tables[1]} order by visits_count desc limit ${start}, ${end};`, function (error, results, fields) {
+
+            if (error) {
+                res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
+                return;
+            }
+
+
+            const data = {
+                pageNum,
+                pageSize,
+                name,
+                result: result
+            }
+            res.jsonp(reponse(SUCCESS_CODE, '查询成功', data))
+            
+        });
+        connection.release();
+    })
+
 }
 
 exports.notFound = function(req, res) {

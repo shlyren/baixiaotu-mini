@@ -4,14 +4,25 @@
   <view class="top-wrapper">
     <view class="title">{{ data.title }}</view>
     <view class="content-wrapper">
-      <view wx:for="{{ model }}" wx:key="model" wx:if="{{ data[item.key] != null }}">
+      <view 
+        wx:for="{{ model }}" 
+        wx:key="model" 
+        wx:if="{{ data[item.key] != null && data[item.key] !== '' }}"
+      >
         <view class="title-wrapper">
           <view class="name">{{ item.name }}</view>
-          <view data-key="{{ item.key }}" wx:if="{{ item.copyable }}" class="copy" bindtap="copied">复制</view>
+          <view 
+            data-key="{{ item.key }}" 
+            wx:if="{{ item.copyable }}" 
+            class="copy" 
+            bindtap="copied"
+          >
+          复制
+        </view>
         </view>
         <view class="content">
-          <view wx:if="{{ item.key == 'type' }}">
-            {{ data[item.key] == 0 ? '影视剧集' : '影视剪辑' }}
+          <view wx:if="{{ item.key === 'type' }}">
+            {{ data[item.key] === 0 ? '影视剧集' : '影视剪辑' }}
           </view>
           <view wx:else >{{ data[item.key] }}</view>
         </view>

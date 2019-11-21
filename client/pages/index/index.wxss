@@ -6,8 +6,11 @@
   justify-content: space-between;
 }
 
+.top-wrapper {
+  flex-grow: 1;
+}
 
-.search-wapper {
+.search-wrapper {
   padding: 14rpx;
   background: #32CD32;
 }
@@ -29,20 +32,19 @@
   height: 34rpx;
 }
 
-.main-wapper {
+.section-wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.main-wapper .title-wapper {
+.section-title-wrapper {
   display: flex;
   justify-content: space-between; 
   padding: 10rpx;
   font-size: 40rpx;
-  align-items: center
 }
 
-.main-wapper .title-wapper .right {
+.section-title-wrapper .right {
   color: #888;
   display: flex;
   align-items: center;
@@ -58,14 +60,14 @@
   transform: rotate(45deg);
 }
 
-.main-wapper .list-wapper {
+.section-wrapper .list-wrapper {
   display: flex;
   flex-wrap: wrap;
   padding: 0 10rpx 10rpx;
 }
 
 
-.list-wapper .view-all {
+.list-wrapper .view-all {
   text-align: center;
   color: #888;
   width: 100%;
@@ -75,52 +77,55 @@
   border-radius: 8rpx;
 }
 
-.main-wapper .item-wapper {
+.section-wrapper .item-wrapper {
   display: flex;
   width: 48%;
   flex-direction: column;
-  padding: 1%;
+  padding: 0 1%;
 }
 
-.item-wapper image {
+.list-wrapper .cover {
   width: 100%;
   flex-grow: 1;
 }
 
-.list-wapper-1 .item-wapper {
-  height: 300rpx;
-}
-.list-wapper-0 .item-wapper {
+.list-wrapper-0 .item-wrapper .cover {
   height: 500rpx;
 }
 
-
-.item-wapper .title-wapper {
-  align-items:  flex-end
+.list-wrapper-1 .item-wrapper .cover {
+  height: 240rpx;
 }
-.item-wapper .title-wapper .left {
+
+
+.item-wrapper .title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items:  center;
+  margin:  7rpx 0 15rpx;
   font-size: 32rpx;
-  margin-top: 10rpx;
 }
 
-.item-wapper .title-wapper .right {
+.item-wrapper .title-wrapper .right {
+  display: flex;
   font-size: 24rpx;
   color: #888;
+  align-items: center;
 }
 
-.item-wapper .title-wapper .right image {
+.item-wrapper .title-wrapper .right image {
   width: 24rpx;
   height: 24rpx;
   margin-right: 7rpx;
 }
 
-.footer-wapper {
+.footer-wrapper {
   text-align: center;
   padding: 20rpx 0 30rpx;
   color: #888;
   font-size: 28rpx;
 }
 
-.footer-wapper a {
+.footer-wrapper a {
   text-decoration: underline;
 }

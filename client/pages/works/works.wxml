@@ -1,7 +1,7 @@
 <view class="container">
   <view class="item-wapper" wx:for="{{ items }}" wx:key="mainlist">
     <view class="content" data-index="{{ index }}" bindtap="onItemClick">
-      <image mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
+      <image webp mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
       <view>
         <view class="title">{{ item.title }}</view>
         <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>

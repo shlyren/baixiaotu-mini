@@ -1,3 +1,6 @@
+.container {
+  width: 100%;
+}
 
 .item-wapper {
   display: flex;
