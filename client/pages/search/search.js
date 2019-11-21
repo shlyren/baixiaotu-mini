@@ -45,7 +45,7 @@ Page({
     })
     this.onRequestData()
   },
-  startSearch: function(e) {
+  startSearch: function() {
     this.setData({
       pageNum: 1,
       noMoreData: false,
@@ -68,11 +68,10 @@ Page({
       data: data,
       method: 'GET',
       success: (res) => {
-        
-        console.log(res)
         const { data: resultData, code, message } = res.data;
         if (code == 200) {
           const { result, pageSize } = resultData
+          console.log(result)
           wx.hud.hide()
           var data = {
             items: this.data.items.concat(result),
@@ -95,7 +94,15 @@ Page({
         })
       }
     })
-
-
+  },
+  onItemClick: function (e) {
+    const index = e.currentTarget.dataset.index
+    const item = this.data.items[index]
+    wx.navigateTo({
+      url: '/pages/particulars/particulars',
+      success: function (res) {
+        res.eventChannel.emit('acceptDataFromOpenerPage', { item })
+      }
+    })
   }
 })

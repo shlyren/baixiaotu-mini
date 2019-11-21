@@ -186,24 +186,27 @@ exports.querySearch = function(req, res) {
             connection.release();
             return
         }
-
         
         const start = (pageNum - 1) * pageSize
-        const end = pageNum * pageSize - 1
-        connection.query(`SELECT * FROM ${tables[0]}, ${tables[1]} order by visits_count desc limit ${start}, ${end};`, function (error, results, fields) {
+
+        const sql = `SELECT * FROM t_television  WHERE title like '%${name}%' UNION ` +
+                    `SELECT * FROM t_television_cut WHERE title like '%${name}%' ORDER BY visits_count desc limit ${start},${pageSize};`
+
+        console.log(sql)
+
+        connection.query(sql, function (error, results, fields) {
 
             if (error) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
                 return;
             }
-
-
             const data = {
                 pageNum,
                 pageSize,
                 name,
-                result: result
+                result: results
             }
+            console.log(`查询结果：${results.length}`)
             res.jsonp(reponse(SUCCESS_CODE, '查询成功', data))
             
         });
