@@ -95,8 +95,8 @@ exports.queryWorksList = function(req, res) {
 
 // 更新访问量
 exports.updateVisits = function (req, res) {
-    const { id, type } = req.query;
-    console.log(req.query)
+    const { id, type } = req.body;
+
     if( id == undefined || type == undefined || !tables[type] ) {
         res.jsonp(reponse(API_ERROR_CODE, '参数无效', null))
         return;
