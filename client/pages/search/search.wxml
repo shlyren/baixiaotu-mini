@@ -27,7 +27,6 @@
   </view>
 
   <view class="container">
-
     <view class="content-wrapper">
       <view class="no-data" wx:if="{{ items.length == 0 }}">无搜索结果</view>
       <view class="result-wrapper" wx:else>
@@ -37,7 +36,7 @@
             <view>
               <view class="title">{{ item.title }}</view>
               <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>
-              <view>B站是否可观看：{{ (item.bilibili_link || item.bili_link) == null ? "否" : "是"  }}</view>
+              <view>B站是否可观看：{{ item.bili_link == null ? "否" : "是"  }}</view>
               <view>网盘是否有资源：{{ item.baidu_link == null ? "否" : "是" }}</view>
               <view class="visits">
                 <image class="logo" src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
@@ -57,7 +56,7 @@
           <view class="weui-loadmore__tips">正在加载更多</view>
         </view>
         <view wx:if="{{ !loadMore && noMoreData }}" class="weui-loadmore weui-loadmore_line">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">无更多数据</view>
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底啦~</view>
         </view>
       </view>
     </view>

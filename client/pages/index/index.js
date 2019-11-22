@@ -8,11 +8,7 @@ Page({
   },
   // 页面加载完成后
   onLoad: function () {
-    const self = this
-    this.loadMainData(this.updateData);
-  },
-  updateData: function (mainData) {
-    this.setData({ mainData })
+    this.onPullDownRefresh()
   },
   onSearchClick: function (e) {
     wx.navigateTo({
@@ -40,26 +36,34 @@ Page({
       url: '/pages/about/about',
     })
   },
+  onPullDownRefresh: function() {
+    this.loadMainData(mainData => {
+      this.setData({ mainData })
+    });
+  },
   // 加载首页主要数据
-  loadMainData: function(callback) {
+  loadMainData: function (callback) {
     wx.hud.loading()
     wx.request({
       url: 'https://api-cc.yuxiang.ren/mainlist',
       method: 'GET',
-      success: function(res) {
+      success: function (res) {
         wx.hud.hide()
         if (typeof callback == "function") {
           const { data: mainData, code, message } = res.data
           if (code == 200) {
             callback(mainData)
-          }else {
+          } else {
             wx.hud.error(message)
           }
         }
       },
-      fail: function(res) {
+      fail: function (res) {
         wx.hud.error(res.errMsg)
       },
+      complete: function() {
+        wx.stopPullDownRefresh()
+      }
     })
   },
 })

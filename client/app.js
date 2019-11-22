@@ -31,10 +31,6 @@ App({
       wx.hideLoading();
       wx.hideToast();
     }
-
-    // function showHUD(title, icon, image, success) {
-      
-    // }
   },
   showHUD: function (title, icon, image, success) {
     wx.hud.hide()

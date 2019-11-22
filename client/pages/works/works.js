@@ -18,12 +18,15 @@ Page({
     wx.setNavigationBarTitle({
       title: `全部作品 - ${ title }`,
     })
+    this.setData({ type: options.type })
 
-  
 
+    this.onPullDownRefresh()
+  },
+  onPullDownRefresh: function() {
     const self = this;
-    this.onLoadListData(options, items => {
-      self.setData({ items })  
+    this.onLoadListData({type: this.data.type}, items => {
+      self.setData({ items })
     })
   },
   onLoadListData: function (options, callback) {
@@ -46,6 +49,9 @@ Page({
       fail: function(res) {
         wx.hud.error("加载失败")
       },
+      complete: function() {
+        wx.stopPullDownRefresh()
+      }
     })
   },
   onItemClick: function(e) {

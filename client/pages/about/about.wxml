@@ -6,15 +6,14 @@
       <image src="https://i.loli.net/2019/11/19/KY6Vr1hx4aWgGLT.jpg" />
       <view class="name">
         <view style="margin-top: 20rpx;">白小兔</view>
-        <view class="version">1.0.0</view>
+        <view class="version">{{ version }}</view>
       </view>
     </view>
     <view class="divider"></view>
 
     <view class="title">特别说明</view>
     <view class="illustrate">
-      <view class="content">本程序的内容来自互联网或由作者进行二次创作后上传，如若侵权请联系删除。</view>
-      <view class="content">本程序的发布仅为交流与分享，不能保证内容的正确性及有效性。</view>
+      <view class="content" wx:for="{{illustrate}}" wx:key="illustrate">{{item}}</view>
     </view>
     <view class="divider"></view>
 

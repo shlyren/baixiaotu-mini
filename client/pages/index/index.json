@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "白小兔"
+  "navigationBarTitleText": "白小兔兔",
+  "enablePullDownRefresh": true
 }
