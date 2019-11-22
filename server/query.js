@@ -95,8 +95,8 @@ exports.queryWorksList = function(req, res) {
 
 // 更新访问量
 exports.updateVisits = function (req, res) {
-    const { id, type } = req.body;
-
+    const { id, type } = req.query;
+    console.log(req.query)
     if( id == undefined || type == undefined || !tables[type] ) {
         res.jsonp(reponse(API_ERROR_CODE, '参数无效', null))
         return;
@@ -115,27 +115,23 @@ exports.updateVisits = function (req, res) {
             connection.release();
             return;
         }
-        connection.query(`SELECT visits_count FROM ${tableName} where id = '${id}';`, function (error, results, fields) {
+        //UPDATE t_television SET visits_count = (SELECT visits_count FROM (SELECT visits_count FROM t_television WHERE id = 1 ) as T ) + 1 WHERE id = 1;
+        const sql = `UPDATE ${tableName} SET visits_count = (SELECT visits_count FROM (SELECT visits_count FROM ${tableName} WHERE id = ${id} ) as T ) + 1 WHERE id = ${id};`
+        console.log(sql)
+        connection.query(sql, function (error, results, fields) {
             if (error) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
-                connection.release();
                 return;
             }
-            var { visits_count = 0 } = results[0]
-            connection.query(`UPDATE ${tableName} set visits_count = '${++visits_count}' where id = '${id}';`, function (error, results, fields) {
-                if (error) {
-                    res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
-                    return;
-                }
-                res.jsonp(reponse(SUCCESS_CODE, '操作成功', {
-                    id,
-                    type,
-                    visits_count
-                }))
+            res.jsonp(reponse(SUCCESS_CODE, '操作成功', {
+                id,
+                type,
+                results
+            }))
 
-                connection.release();
-            });
         });
+
+        connection.release();
     })
 }
 
@@ -172,14 +168,23 @@ exports.resourceFeedback = function(req, res) {
     })
 }
 
+// s
+/**
+ *  搜索
+ *  @param
+ *  name: 关键字
+ *  pageNum: 页码，第一页为1
+ *  pageSize: 每页数量，默认10
+ *  order: 排序方式.
+ */
 exports.querySearch = function(req, res) {
     
     const query = req.query 
+
     const name =  query.name || '';
     const pageNum = parseInt(query.pageNum) || 1;
     const pageSize = parseInt(query.pageSize) || 10;
     
-
     pool.getConnection(function(error, connection) {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
@@ -189,7 +194,7 @@ exports.querySearch = function(req, res) {
         
         const start = (pageNum - 1) * pageSize
 
-        const sql = `SELECT * FROM t_television UNION ` +
+        const sql = 'SELECT * FROM t_television UNION ' +
                     `SELECT * FROM t_television_cut WHERE title like '%${name}%' ORDER BY visits_count desc limit ${start},${pageSize};`
 
         console.log(sql)
@@ -215,6 +220,7 @@ exports.querySearch = function(req, res) {
 
 }
 
+// 404
 exports.notFound = function(req, res) {
     res.jsonp(reponse(404, req.path + ' not found', null))
 }
