@@ -2,8 +2,7 @@ var mysql = require('mysql');
 var fs = require('fs');
 const os = require('os');
 
-function MySQLPool() {
-    this.flag = true;
+function MySQLManager()  {
 
     /** 加载mysql验证文件
      {
@@ -20,22 +19,27 @@ function MySQLPool() {
         sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
     }else if (osName === 'Linux') { // Linux
         sql_config = JSON.parse(fs.readFileSync("/root/swift/baixiaotu.json")).mysql;
-    }else { // windows
+    }else { // others
         console.log('请配置Mysql数据')
         return;
     }
     
-    this.pool = mysql.createPool(sql_config)
+    const pool = mysql.createPool(sql_config)
+    pool.on('connection', function(connection) {
+        connection.query("SET SESSION auto_increment_increment=1");
+    })
 
-    this.getPool = function() {
-        if (this.flag) {
-            this.pool.on('connection', function(connection) {
-                connection.query("SET SESSION auto_increment_increment=1");
-                this.flag = false;
-            })
-        }
-        return this.pool
+    this.query = function(sql, callback) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                console.log(error)
+                callback(error, null);
+            }else {
+                connection.query(sql, callback);
+            }
+            connection.release();
+        })
     }
 }
 
-module.exports = MySQLPool;
+module.exports = MySQLManager;

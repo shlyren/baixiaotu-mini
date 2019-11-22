@@ -1,2 +1,3 @@
-
-nohup node app.js &
+git pull;
+forever stop api.js
+forever start api.js
