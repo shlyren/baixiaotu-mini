@@ -56,7 +56,7 @@ Page({
       id: data.id
     }
     wx.request({
-      url: 'https://api-cc.yuxiang.ren/calculate/visits',
+      url: wx.url('calculate/visits'),
       data: requestData,
       method: 'PUT',
       dataType: 'json'

@@ -13,7 +13,7 @@
 
     <view class="title">特别说明</view>
     <view class="illustrate">
-      <view class="content" wx:for="{{illustrate}}" wx:key="illustrate">{{item}}</view>
+      <view class="content" wx:for="{{ illustrate }}" wx:key="illustrate">{{ item }}</view>
     </view>
     <view class="divider"></view>
 

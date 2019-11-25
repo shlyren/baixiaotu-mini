@@ -1,3 +1,3 @@
 git pull;
-forever stop api.js
-forever start api.js
+# forever stop api.js
+forever restart api.js

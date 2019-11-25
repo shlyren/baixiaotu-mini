@@ -27,7 +27,7 @@ Page({
     const { item } = this.data;
     wx.hud.loading('正在提交')
     wx.request({
-      url: 'https://api-cc.yuxiang.ren/feedback/resource',
+      url: wx.url('feedback/resource'),
       data: {
         name: item.title,
         type: item.type,

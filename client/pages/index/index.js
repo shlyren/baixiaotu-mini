@@ -31,11 +31,17 @@ Page({
       }
     })
   },
+  /**
+   * 跳转到关于界面
+   */
   jumpToAbout: function() {
     wx.navigateTo({
       url: '/pages/about/about',
     })
   },
+  /**
+   * 下拉回调
+   */
   onPullDownRefresh: function() {
     this.loadMainData(mainData => {
       this.setData({ mainData })
@@ -45,7 +51,7 @@ Page({
   loadMainData: function (callback) {
     wx.hud.loading()
     wx.request({
-      url: 'https://api-cc.yuxiang.ren/mainlist',
+      url: wx.url('mainlist'),
       method: 'GET',
       success: function (res) {
         wx.hud.hide()

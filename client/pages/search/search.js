@@ -64,7 +64,7 @@ Page({
     } 
 
     wx.request({
-      url: 'https://api-cc.yuxiang.ren/search',
+      url: wx.url('search'),
       data: data,
       method: 'GET',
       success: (res) => {

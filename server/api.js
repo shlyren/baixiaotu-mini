@@ -2,6 +2,8 @@ const express = require('express')
 const query = require('./query.js')
 const app = express()
 
+app.disable('x-powered-by');
+
 
 const bodyParser = require("body-parser");
 

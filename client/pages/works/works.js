@@ -32,7 +32,7 @@ Page({
   onLoadListData: function (options, callback) {
     wx.hud.loading()
     wx.request({
-      url: 'https://api-cc.yuxiang.ren/workslist',
+      url: wx.url('workslist'),
       data: options,
       method: 'GET',
       success: function(res) {
