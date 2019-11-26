@@ -8,7 +8,7 @@
 
 .item-wrapper .content {
   display: flex;
-  padding: 15rpx 20rpx 0;
+  margin: 15rpx 20rpx 0rpx;
 }
 
 .item-wrapper .content>view {
@@ -23,7 +23,7 @@
 .item-wrapper .cover {
   width: 250rpx;
   height: 190rpx;
-  margin-right: 18rpx;
+  margin-right: 20rpx;
 }
 
 .item-wrapper .visits {
@@ -31,11 +31,12 @@
   align-items: center;
   justify-content: flex-end;
   margin-right: 10rpx;
+  font-size: 20rpx;
 }
 
 .item-wrapper .visits .logo {
-  width: 25rpx;
-  height: 25rpx;
+  width: 24rpx;
+  height: 24rpx;
   margin-right: 7rpx;
 }
 
@@ -43,6 +44,7 @@
   height: 2rpx;
   background: #eee;
   margin-left: 20rpx;
+  
 }
 
 

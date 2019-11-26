@@ -72,9 +72,10 @@ Page({
         if (code == 200) {
           const { result, pageSize } = resultData
           wx.hud.hide()
-          var data = {
+          let data = {
             items: this.data.items.concat(result),
-            pageNum: pageNum + 1
+            pageNum: pageNum + 1,
+            loadMore: false
           }
           if (result.length < pageSize) {
             data.noMoreData = true;

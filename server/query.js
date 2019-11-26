@@ -7,10 +7,11 @@ const SUCCESS_CODE = 200; // 成功
 const SQL_ERROR_CODE = 0; // 数据库错误
 const API_ERROR_CODE = -1; // 请求错误
 
+
 // 查询首页数据
-exports.queryMainList = function(_, res) {
+function queryMainList(_, res) {
     
-    mysqlManager.query('SELECT * FROM t_television order by visits_count desc limit 6;',  function(error, results) {
+    mysqlManager.query('SELECT * FROM t_television order by visits_count desc limit 6;',  (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
             return;
@@ -20,7 +21,7 @@ exports.queryMainList = function(_, res) {
             type: 0,
             items: results,
         }
-        mysqlManager.query('SELECT * FROM t_television_cut order by visits_count desc limit 6;', function(error, results) {
+        mysqlManager.query('SELECT * FROM t_television_cut order by visits_count desc limit 6;', (error, results) => {
             if (error) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
                 return;
@@ -40,7 +41,7 @@ exports.queryMainList = function(_, res) {
 /**
  * 查询作品
  */
-exports.queryWorksList = function(req, res) {
+function queryWorksList(req, res) {
 
     const { type } = req.query;
     const tableName  = tables[type]
@@ -49,7 +50,7 @@ exports.queryWorksList = function(req, res) {
         return;
     }
 
-    mysqlManager.query(`SELECT * FROM ${tableName} order by visits_count desc;`, function(error, results) {
+    mysqlManager.query(`SELECT * FROM ${tableName} order by visits_count desc;`, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
         }else {
@@ -59,7 +60,7 @@ exports.queryWorksList = function(req, res) {
 }
 
 // 更新访问量
-exports.updateVisits = function (req, res) {
+function updateVisits(req, res) {
     const { id, type } = req.body;
     const tableName  = tables[type]
 
@@ -69,7 +70,7 @@ exports.updateVisits = function (req, res) {
     }
     
     const sql = `UPDATE ${tableName} SET visits_count = (SELECT visits_count FROM (SELECT visits_count FROM ${tableName} WHERE id = ${id} ) as T ) + 1 WHERE id = ${id};`
-    mysqlManager.query(sql, function (error, results) {
+    mysqlManager.query(sql, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
         }else {
@@ -83,7 +84,7 @@ exports.updateVisits = function (req, res) {
 }
 
 // 资源反馈
-exports.resourceFeedback = function(req, res) {
+function resourceFeedback(req, res) {
 
     const { name, resour_id, type, message, baidu_link, bili_link, mail } = req.body;
 
@@ -92,10 +93,11 @@ exports.resourceFeedback = function(req, res) {
         return;
     }
 
-    const sql =  `INSERT INTO t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) VALUES 
-                ('${name}', ${type}, ${ resour_id }, '${ message }', '${ baidu_link }', '${ bili_link }', '${ mail }');`
+    const sql =  `INSERT INTO t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
+                  VALUES 
+                  ('${name}', ${type}, ${ resour_id }, '${ message }', '${ baidu_link }', '${ bili_link }', '${ mail }');`
             
-    mysqlManager.query(sql, function(error, results) {
+    mysqlManager.query(sql, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
         }else {
@@ -105,13 +107,13 @@ exports.resourceFeedback = function(req, res) {
 }
 /**
  *  搜索
- *  @param
- *  name: 关键字
- *  pageNum: 页码，第一页为1
- *  pageSize: 每页数量，默认10
- *  order: 排序方式.
+ *  
+ *  @param name 关键字
+ *  @param pageNum 页码，第一页为1
+ *  @param pageSize 每页数量，默认10
+ *  @param order 排序方式.
  */
-exports.querySearch = function(req, res) {
+function querySearch(req, res) {
     
     const query = req.query 
 
@@ -126,7 +128,7 @@ exports.querySearch = function(req, res) {
 
     console.log(sql)
 
-    mysqlManager.query(sql, function(error, results) {
+    mysqlManager.query(sql, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
         }else {
@@ -141,15 +143,23 @@ exports.querySearch = function(req, res) {
 }
 
 // 404
-exports.notFound = function(req, res) {
+function notFound(req, res) {
     res.jsonp(reponse(404, req.path + ' not found', null))
 }
 
 
 function reponse(code, message, data) {
-    return {
-        code,
-        message,
-        data
-    }
+    return { code, message, data }
+}
+
+module.exports = {
+    queryMainList,
+    queryWorksList,
+    updateVisits,
+    resourceFeedback,
+    querySearch,
+    notFound,
+    SUCCESS_CODE,
+    SQL_ERROR_CODE,
+    API_ERROR_CODE
 }
