@@ -5,41 +5,4 @@
 .item-wapper {
   display: flex;
   flex-direction: column;
-  font-size: 24rpx;
-}
-
-.item-wapper .content {
-  display: flex;
-  padding: 15rpx 20rpx;
-}
-
-.item-wapper .content>view {
-  flex-grow: 1;
-}
-
-.item-wapper .content .title {
-  font-size: 34rpx;
-  margin-bottom: 7rpx;
-}
-
-.item-wapper .cover {
-  width: 250rpx;
-  height: 190rpx;
-  margin-right: 18rpx;
-}
-
-.item-wapper .visits {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 10rpx;
-}
-.item-wapper .visits .logo {
-  width: 25rpx;
-  height: 25rpx;
-  margin-right: 7rpx;
-}
-
-.item-wapper .divider {
-  margin-left: 20rpx;
 }

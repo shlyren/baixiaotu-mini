@@ -1,0 +1,17 @@
+<!--Component/list-item-view.wxml-->
+<view class="item-wrapper">
+  <view class="content">
+    <image webp mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
+    <view>
+      <view class="title">{{ item.title }}</view>
+      <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>
+      <view>B站是否可观看：{{ item.bili_link == null ? "否" : "是"  }}</view>
+      <view>网盘是否有资源：{{ item.baidu_link == null ? "否" : "是" }}</view>
+      <view class="visits">
+        <image class="logo" src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
+        <view>{{ item.visits_count }}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ divider }}" class="divider"></view>
+</view>

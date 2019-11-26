@@ -11,7 +11,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     
     const title = options.type == 0 ? '影视剧集' : '影视剪辑剪辑';
 
@@ -19,8 +19,6 @@ Page({
       title: `全部作品 - ${ title }`,
     })
     this.setData({ type: options.type })
-
-
     this.onPullDownRefresh()
   },
   onPullDownRefresh: function() {
@@ -60,7 +58,7 @@ Page({
     wx.navigateTo({
       url: '/pages/particulars/particulars',
       success: function(res) {
-        res.eventChannel.emit('acceptDataFromOpenerPage', { item })
+        res.eventChannel.emit('data', item)
       }
     })
   }

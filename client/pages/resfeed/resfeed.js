@@ -14,8 +14,8 @@ Page({
   onLoad: function (options) {
     const self = this;
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel && eventChannel.on('acceptDataFromOpenerPage', (item) => {
-      self.setData(item)
+    eventChannel && eventChannel.on('data', item => {
+      self.setData({ item })
     })
   },
   submitForm: function(e) {
@@ -44,7 +44,7 @@ Page({
         if (code == 200) {
           wx.hud.success(message, function() {
             wx.navigateBack({
-              delta: 1,
+              delta: 0.6,
             })
           })
         } else {

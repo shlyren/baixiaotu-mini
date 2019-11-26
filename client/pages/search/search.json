@@ -1,5 +1,8 @@
 {
-  "usingComponents": {},
   "navigationBarTitleText": "搜索",
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "item-view": "/Component/list-item-view/index"
+  }
+  
 }

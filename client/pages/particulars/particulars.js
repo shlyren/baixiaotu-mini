@@ -44,20 +44,19 @@ Page({
   onLoad: function (options) {
 
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('acceptDataFromOpenerPage', this.updateData)
+    eventChannel.on('data', this.updateData)
   },
 
-  updateData: function (item) {
-    const data = item.item
+  updateData: function (data) {
+
     this.setData({ data })
 
-    const requestData = {
-      type: data.type,
-      id: data.id
-    }
     wx.request({
       url: wx.url('calculate/visits'),
-      data: requestData,
+      data: {
+        type: data.type,
+        id: data.id
+      },
       method: 'PUT',
       dataType: 'json'
     })
@@ -81,7 +80,7 @@ Page({
     wx.navigateTo({
       url: '/pages/resfeed/resfeed',
       success: function (res) {
-        res.eventChannel.emit('acceptDataFromOpenerPage', { item })
+        res.eventChannel.emit('data', item)
       }
     })
   }

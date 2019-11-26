@@ -15,10 +15,12 @@ Page({
       {
         'title': 'bilibili主页',
         'content': 'https://space.bilibili.com/20427061'
-      }, {
+      }, 
+      {
         'title': '白小兔',
         'content': 'https://baixiaotu.cc'
-      }, {
+      }, 
+      {
         'title': '联系作者',
         'content': 'shlyjen',
         'describe': '微信号已复制到剪切板，请手动添加微信好友。'

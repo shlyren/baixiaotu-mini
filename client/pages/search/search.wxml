@@ -31,20 +31,13 @@
       <view class="no-data" wx:if="{{ items.length == 0 }}">无搜索结果</view>
       <view class="result-wrapper" wx:else>
         <view class="item-wrapper" wx:for="{{ items }}" wx:key="items">
-          <view class="content" data-index="{{ index }}" bindtap="onItemClick">
-            <image webp mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
-            <view>
-              <view class="title">{{ item.title }}</view>
-              <view>类型：{{ item.type == 0 ? "影视剧集" : "影视剪辑" }}</view>
-              <view>B站是否可观看：{{ item.bili_link == null ? "否" : "是"  }}</view>
-              <view>网盘是否有资源：{{ item.baidu_link == null ? "否" : "是" }}</view>
-              <view class="visits">
-                <image class="logo" src="https://i.loli.net/2019/11/19/G3e8ovADKX7NPpQ.png" />
-                <view>{{ item.visits_count }}</view>
-              </view>
-            </view>
-          </view>
-          <view wx:if="{{ index < items.length - 1 }}" class="divider"></view>
+          <item-view 
+            data-index="{{ index }}"
+            item="{{ item }}"
+            divider="{{ index < items.length - 1 }}"
+            bindtap="onItemClick">
+          >
+          </item-view>
         </view>
       </view>
     </view>
@@ -55,7 +48,7 @@
           <view class="weui-loading"></view>
           <view class="weui-loadmore__tips">正在加载更多</view>
         </view>
-        <view wx:if="{{ !loadMore && noMoreData }}" class="weui-loadmore weui-loadmore_line">
+        <view wx:elif="{{ noMoreData }}" class="weui-loadmore weui-loadmore_line">
           <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底啦(～￣▽￣)～</view>
         </view>
       </view>

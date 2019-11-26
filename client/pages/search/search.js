@@ -71,7 +71,6 @@ Page({
         const { data: resultData, code, message } = res.data;
         if (code == 200) {
           const { result, pageSize } = resultData
-          console.log(result)
           wx.hud.hide()
           var data = {
             items: this.data.items.concat(result),
@@ -101,7 +100,7 @@ Page({
     wx.navigateTo({
       url: '/pages/particulars/particulars',
       success: function (res) {
-        res.eventChannel.emit('acceptDataFromOpenerPage', { item })
+        res.eventChannel.emit('data', item)
       }
     })
   }

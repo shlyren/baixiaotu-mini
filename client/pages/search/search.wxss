@@ -14,47 +14,4 @@
   font-size: 30rpx;
   color: #333;
   margin-top: 300rpx;
-
-}
-
-.item-wrapper {
-  display: flex;
-  flex-direction: column;
-  font-size: 24rpx;
-}
-
-.item-wrapper .content {
-  display: flex;
-  padding: 15rpx 20rpx;
-}
-
-.item-wrapper .content>view {
-  flex-grow: 1;
-}
-
-.item-wrapper .content .title {
-  font-size: 34rpx;
-  margin-bottom: 7rpx;
-}
-
-.item-wrapper .cover {
-  width: 250rpx;
-  height: 190rpx;
-  margin-right: 18rpx;
-}
-
-.item-wrapper .visits {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 10rpx;
-}
-.item-wrapper .visits .logo {
-  width: 25rpx;
-  height: 25rpx;
-  margin-right: 7rpx;
-}
-
-.item-wrapper .divider {
-  margin-left: 20rpx;
 }

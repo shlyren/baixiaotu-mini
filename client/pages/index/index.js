@@ -27,7 +27,7 @@ Page({
     wx.navigateTo({
       url: '/pages/particulars/particulars',
       success: function (res) {
-        res.eventChannel.emit('acceptDataFromOpenerPage', { item })
+        res.eventChannel.emit('data', item)
       }
     })
   },
