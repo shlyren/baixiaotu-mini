@@ -51,15 +51,5 @@ Page({
         wx.stopPullDownRefresh()
       }
     })
-  },
-  onItemClick: function(e) {
-    const index = e.currentTarget.dataset.index
-    const item = this.data.items[index]
-    wx.navigateTo({
-      url: '/pages/particulars/particulars',
-      success: function(res) {
-        res.eventChannel.emit('data', item)
-      }
-    })
   }
 })

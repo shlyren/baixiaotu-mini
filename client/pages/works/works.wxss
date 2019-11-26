@@ -1,8 +1,10 @@
 .container {
   width: 100%;
-}
-
-.item-wapper {
+  height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.list-wrapper {
+  flex-grow: 1;
 }

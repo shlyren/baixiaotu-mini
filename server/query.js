@@ -121,7 +121,7 @@ exports.querySearch = function(req, res) {
 
     const start = (pageNum - 1) * pageSize
 
-    const sql = `SELECT * FROM t_television UNION 
+    const sql = `SELECT * FROM t_television UNION WHERE title like '%${name}%' 
                  SELECT * FROM t_television_cut WHERE title like '%${name}%' ORDER BY visits_count desc limit ${start},${pageSize};`
 
     console.log(sql)

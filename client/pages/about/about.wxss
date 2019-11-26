@@ -52,6 +52,7 @@
   font-size: 28rpx;
   text-indent: 56rpx;
 }
+
 .divider {
   margin: 20rpx 0;
 }

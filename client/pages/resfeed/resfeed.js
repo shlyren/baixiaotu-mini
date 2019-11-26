@@ -15,7 +15,7 @@ Page({
     const self = this;
     const eventChannel = this.getOpenerEventChannel()
     eventChannel && eventChannel.on('data', item => {
-      self.setData({ item })
+      this.setData({ item })
     })
   },
   submitForm: function(e) {

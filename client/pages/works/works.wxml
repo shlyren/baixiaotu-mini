@@ -1,15 +1,16 @@
 <view class="container">
-  <view class="item-wapper" wx:for="{{ items }}" wx:key="mainlist">
+  <view class="list-wrapper">
     <item-view 
+      wx:for="{{ items }}" 
+      wx:key="mainlist"
       class="content"
-      data-index="{{ index }}"
       item="{{ item }}"
-      divider="{{ index < items.length - 1 }}"
-      bindtap="onItemClick">
+      divider="{{ index < items.length - 1 }}">
     >
     </item-view>
-    <view wx:if="{{ index >= items.length - 1 }}" class="weui-loadmore weui-loadmore_line">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底啦(～￣▽￣)～</view>
-    </view>
+  </view>
+
+  <view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底啦(～￣▽￣)～</view>
   </view>
 </view>

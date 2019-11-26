@@ -8,7 +8,7 @@
 
 .item-wrapper .content {
   display: flex;
-  padding: 15rpx 20rpx 5rpx;
+  padding: 15rpx 20rpx 0;
 }
 
 .item-wrapper .content>view {

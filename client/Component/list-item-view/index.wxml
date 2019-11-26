@@ -1,6 +1,6 @@
 <!--Component/list-item-view.wxml-->
 <view class="item-wrapper">
-  <view class="content">
+  <view class="content" bindtap="onItemClick">
     <image webp mode="aspectFill" class="cover" src="{{ item.cover_url }}" />
     <view>
       <view class="title">{{ item.title }}</view>
