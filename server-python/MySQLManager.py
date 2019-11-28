@@ -63,6 +63,7 @@ def execute(sql):
         count = cursor.execute(sql)
         print('查询到 {} 条数据'.format(count))
         result = cursor.fetchall()
+        print(result)
     except Exception as e:
         print(e)
         return False, '{}'.format(e)
