@@ -12,6 +12,8 @@ $RECYCLE.BIN/
 
 # Node.js
 node_modules/
+package-lock.json
+report.*.json
 
 #Python
 .idea/
