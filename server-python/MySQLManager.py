@@ -16,7 +16,7 @@ def mysql_config_path():
     mysql_config = None
     if platform == 'darwin':
         mysql_config = "/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"
-    elif platform == 'linux':
+    elif platform.startswith('linux'):
         mysql_config = "/root/swift/baixiaotu.json"
     else:
         print('请设置mysql配置文件路径')
