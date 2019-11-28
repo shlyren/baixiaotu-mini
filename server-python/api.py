@@ -40,7 +40,9 @@ def updateVisits():
     except:
         values = request.values
 
+    print('===== praams start =====')
     print(values)
+    print('===== praams end =====')
     _type = values.get('type')
     _id = values.get('id')
     return query.updateVisits(_id, _type)
