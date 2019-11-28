@@ -41,7 +41,7 @@ def updateVisits():
     print('form', '{}'.format(request.form))
     try:
         print('json',request.json)
-    finally:
+    except:
         print('error===')
 
     print('====headers===')
