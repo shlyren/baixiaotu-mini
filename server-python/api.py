@@ -34,25 +34,25 @@ def search():
 # 访问量更新
 @app.route('/calculate/visits', methods=['PUT'])
 def updateVisits():
-    values = request.values
+    
+    try:
+        values = request.json
+    except:
+        values = request.values
+
     _type = values.get('type')
     _id = values.get('id')
-    print('values', '{}'.format(values))
-    print('form', '{}'.format(request.form))
-    try:
-        print('json',request.json)
-    except:
-        print('error===')
-
-    print('====headers===')
-    print(request.headers)
     return query.updateVisits(_id, _type)
 
 
 # 资源反馈
 @app.route('/feedback/resource', methods=['POST'])
 def resourceFeedback():
-    args = request.values
+    try:
+        args = request.json
+    except:
+        args = request.values
+
     name = args.get('name')
     _id = args.get('resour_id')
     _type = args.get('type')
