@@ -60,7 +60,8 @@ def execute(sql):
         # 获取一个光标
         cursor = conn.cursor()
         # 拼接并执行SQL语句
-        cursor.execute(sql)
+        count = cursor.execute(sql)
+        print('查询到 {} 条数据'.format(count))
         result = cursor.fetchall()
     except Exception as e:
         print(e)

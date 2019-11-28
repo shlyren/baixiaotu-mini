@@ -45,7 +45,7 @@ def worksList(_type=None):
         if -1 < index < 2:
             return query("SELECT * FROM {} ORDER BY visits_count DESC;".format(tableNames[index]))
         else:
-            return response(API_ERROR_CODE, '无效的参数', None)
+            return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
 
 def search(name='', pageNum=1, pageSize=10):
@@ -74,7 +74,7 @@ def updateVisits(_id, _type):
     """
     print(_id, _type)
     if not _id or not _type or not -1 < int(_type) < 2:
-        return response(API_ERROR_CODE, '无效的参数', None)
+        return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     table_name = tableNames[int(_type)]
 
@@ -100,7 +100,7 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
     :return:
     """
     if not _id or not _type:
-        return response(API_ERROR_CODE, '无效的参数', None)
+        return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     sql = """
         INSERT INTO t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
