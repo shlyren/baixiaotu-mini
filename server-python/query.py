@@ -3,6 +3,7 @@
 
 import MySQLManager
 import json
+from flask import Response
 
 SUCCESS_CODE = 200  # 成功
 SQL_ERROR_CODE = 0  # 数据库错误
@@ -162,8 +163,10 @@ def wrapperResponse(code, message, data):
     :param data: 请求数据
     :return:
     """
-    return json.dumps({
+    response = json.dumps({
         'code': code,
         'message': message,
         'data': data
     })
+    # 在linux中 直接返回dict 回报 TypeError: 'dict' object is not callable 
+    return Response(response, mimetype='application/json')
