@@ -118,7 +118,7 @@ def page_not_found(error, _request):
     :param error: 错误信息
     :return:
     """
-    return wrapperResponse(404, "the path '{}' was not found".format(_request.path), '{}'.format(error))
+    return '404./p' #wrapperResponse(404, "the path '{}' was not found".format(_request.path), '{}'.format(error))
 
 
 def method_not_allowed(error, _request):
