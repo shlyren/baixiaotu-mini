@@ -37,7 +37,7 @@ def updateVisits():
     values = request.values
     _type = values.get('type')
     _id = values.get('id')
-    
+    print(values)
     return query.updateVisits(_id, _type)
 
 
