@@ -39,7 +39,10 @@ def updateVisits():
     _id = values.get('id')
     print('values', '{}'.format(values))
     print('form', '{}'.format(request.form))
-    print('json',request.json)
+    try:
+        print('json',request.json)
+    finally:
+        print('error===')
 
     print('====headers===')
     print(request.headers)
