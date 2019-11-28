@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import MySQLManager
+import json
 
 SUCCESS_CODE = 200  # 成功
 SQL_ERROR_CODE = 0  # 数据库错误
@@ -118,7 +119,7 @@ def page_not_found(error, _request):
     :param error: 错误信息
     :return:
     """
-    return '404./p' #wrapperResponse(404, "the path '{}' was not found".format(_request.path), '{}'.format(error))
+    return wrapperResponse(404, "the path '{}' was not found".format(_request.path), '{}'.format(error))
 
 
 def method_not_allowed(error, _request):
@@ -164,5 +165,5 @@ def wrapperResponse(code, message, data):
     return {
         'code': code,
         'message': message,
-        'data': data
+        'data': json.dumps(data)
     }
