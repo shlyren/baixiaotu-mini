@@ -75,6 +75,7 @@ def updateVisits(_id, _type):
     :return:
     """
 
+    print('updateVisits: id is {}, type is {}'.format(_id, _type))
     if _id == None or not _type == None or not -1 < int(_type) < 2:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 

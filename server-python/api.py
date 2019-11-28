@@ -47,7 +47,6 @@ def updateVisits():
     _type = values['type']
     _id = values['id']
     print('===========')
-    print(_type, _id)
     return query.updateVisits(_id, _type)
 
 
