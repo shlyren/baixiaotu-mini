@@ -24,6 +24,9 @@ def mysql_config_path():
 # 加载mysql 配置文件
 with open(mysql_config_path()) as text:
     config = json.load(text)
+    if config['mysql']:
+        config = config['mysql']
+        
     host = config['host']
     user = config['user']
     password = config['password']
