@@ -37,6 +37,7 @@ def updateVisits():
     args = request.args
     _type = args.get('type')
     _id = args.get('id')
+    print(args, request.form)
     return query.updateVisits(_id, _type)
 
 
@@ -44,7 +45,7 @@ def updateVisits():
 @app.route('/feedback/resource', methods=['POST'])
 def resourceFeedback():
     args = request.args
-    print(args)
+    print(args, request.form)
     name = args.get('name')
     _id = args.get('resour_id')
     _type = args.get('type')
