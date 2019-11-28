@@ -6,7 +6,7 @@ App({
   onLaunch: function () {
     this.initHUD()
     wx.url = path => {
-      return `https://api-cc.yuxiang.ren/${path}`.replace('//', '/')
+      return `https://api-cc.yuxiang.ren/${path}`.replace('.ren//', '.ren/')
     }
   },
   

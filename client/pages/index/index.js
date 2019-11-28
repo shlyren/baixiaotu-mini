@@ -65,6 +65,8 @@ Page({
         }
       },
       fail: function (res) {
+
+        console.log(res.errMsg)
         wx.hud.error(res.errMsg)
       },
       complete: function() {

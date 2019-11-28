@@ -74,7 +74,7 @@ def updateVisits(_id, _type):
     :param _type:  作品类型
     :return:
     """
-    print(_id, _type)
+
     if not _id or not _type or not -1 < int(_type) < 2:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 

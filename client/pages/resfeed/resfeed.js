@@ -38,7 +38,7 @@ Page({
         message
       },
       method: 'POST',
-      dataType: 'json',
+      dataType: 'application/json',
       success: function (res) {
         const { code, message } = res.data;
         if (code == 200) {
