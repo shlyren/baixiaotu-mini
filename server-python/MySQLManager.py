@@ -12,6 +12,7 @@ def mysql_config_path():
     :return:
     """
     platform = sys.platform.lower()
+    print('当前平台为：{}'.format(platform))
     mysql_config = None
     if platform == 'darwin':
         mysql_config = "/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"
