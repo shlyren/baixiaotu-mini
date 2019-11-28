@@ -4,6 +4,7 @@
 import pymysql
 import json
 import platform
+from pymysql.cursors import DictCursor
 
 def mysql_config_path():
     """
@@ -36,8 +37,6 @@ with open(mysql_config_path()) as text:
     password = config['password']
     database = config['database']
 
-    print(host, user, password, database)
-
 
 def execute(sql):
     """
@@ -58,12 +57,11 @@ def execute(sql):
     print(sql)
     try:
         # 获取一个光标
-        cursor = conn.cursor()
+        cursor = conn.cursor(DictCursor)
         # 拼接并执行SQL语句
         count = cursor.execute(sql)
         print('查询到 {} 条数据'.format(count))
         result = cursor.fetchall()
-        print(result)
     except Exception as e:
         print(e)
         return False, '{}'.format(e)
