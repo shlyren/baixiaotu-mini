@@ -6,6 +6,7 @@ import json
 import platform
 from pymysql.cursors import DictCursor
 
+
 def mysql_config_path():
     """
     根据平台查询mysq配置文件
@@ -40,8 +41,8 @@ with open(mysql_config_path()) as text:
 
 def execute(sql):
     """
-    查询个数据
-    :param sql:
+    查询数据
+    :param sql: 查询语句
     :return:
     """
     # 建立连接

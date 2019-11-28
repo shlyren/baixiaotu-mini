@@ -45,7 +45,7 @@ def worksList(_type=None):
         index = int(_type)
     finally:
         if -1 < index < 2:
-            return query("SELECT * FROM {} ORDER BY visits_count DESC;".format(tableNames[index]))
+            return query("select * from {} order by visits_count desc;".format(tableNames[index]))
         else:
             return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
@@ -60,9 +60,9 @@ def search(name='', pageNum=1, pageSize=10):
     """
     start = (pageNum - 1) * pageSize
     sql = """
-        SELECT * FROM t_television WHERE title like '%{}%' 
-        UNION 
-        SELECT * FROM t_television_cut WHERE title like '%{}%' ORDER BY visits_count desc limit {},{};
+        select * from t_television where title like '%{}%' 
+        union 
+        select * from t_television_cut where title like '%{}%' order by visits_count desc limit {},{};
     """.format(name, name, start, pageSize)
     return query(sql)
 
@@ -76,15 +76,15 @@ def updateVisits(_id, _type):
     """
 
     print('updateVisits: id is {}, type is {}'.format(_id, _type))
-    if _id == None or _type == None or not (-1 < int(_type) < 2):
+    if None == _id or None == _type or not (-1 < int(_type) < 2):
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     table_name = tableNames[int(_type)]
 
     sql = """
-        UPDATE {} 
-        SET visits_count = (SELECT visits_count FROM (SELECT visits_count FROM {} WHERE id = {} ) as T ) + 1 
-        WHERE id = {};
+        update {} 
+        set visits_count = (select visits_count from (select visits_count from {} where id = {} ) as T ) + 1 
+        where id = {};
     """.format(table_name, table_name, _id, _id)
 
     return query(sql)
@@ -106,8 +106,8 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     sql = """
-        INSERT INTO t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
-        VALUES
+        insert into t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
+        values
         ('{}', {}, {}, '{}', '{}', '{}', '{}');
     """.format(name, _type, _id, message, baidu_link, bili_link, mail)
 
@@ -173,9 +173,9 @@ def wrapperResponse(code, message, data):
     return Response(response, mimetype='application/json')
 
 
-
 from datetime import datetime
 from datetime import date
+
 
 class CJsonEncoder(json.JSONEncoder):
     def default(self, obj):

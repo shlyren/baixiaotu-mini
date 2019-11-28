@@ -25,6 +25,10 @@ app.put('/calculate/visits', jsonParser, query.updateVisits);
 //资源失效反馈
 app.post('/feedback/resource', jsonParser, query.resourceFeedback);
 
+app.get('/', function(_, res) {
+  res.send('This api server powered by Nodejs.')
+})
+
 // 404
 app.all('/*', query.notFound);
 

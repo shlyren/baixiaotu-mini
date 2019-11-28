@@ -6,6 +6,7 @@ import query
 import MySQLManager
 import sys
 from imp import reload
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -16,6 +17,7 @@ app = Flask(__name__)
 @app.route('/mainlist', methods=['GET'])
 def mainList():
     return query.mainList()
+
 
 
 # 按类型查询作品
