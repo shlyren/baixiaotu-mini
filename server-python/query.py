@@ -75,7 +75,7 @@ def updateVisits(_id, _type):
     :return:
     """
 
-    if not _id or not _type or not -1 < int(_type) < 2:
+    if _id == None or not _type == None or not -1 < int(_type) < 2:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     table_name = tableNames[int(_type)]
@@ -101,7 +101,7 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
     :param mail: 详细方式
     :return:
     """
-    if not _id or not _type:
+    if _id == None or _type == None:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     sql = """
