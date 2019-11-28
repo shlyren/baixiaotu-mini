@@ -3,7 +3,7 @@
 
 import pymysql
 import json
-import sys
+import platform
 
 
 def mysql_config_path():
@@ -11,12 +11,12 @@ def mysql_config_path():
     根据平台查询mysq配置文件
     :return:
     """
-    platform = sys.platform.lower()
+    platform = platform.system()
     print('当前平台为：{}'.format(platform))
     mysql_config = None
-    if platform == 'darwin':
+    if platform == 'Darwin':
         mysql_config = "/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"
-    elif platform.startswith('linux'):
+    elif platform == 'Linux':
         mysql_config = "/root/swift/baixiaotu.json"
     else:
         print('请设置mysql配置文件路径')
