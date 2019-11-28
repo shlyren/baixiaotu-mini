@@ -3,6 +3,7 @@
 
 from flask import Flask, request
 import query
+import MySQLManager
 
 app = Flask(__name__)
 
@@ -71,4 +72,7 @@ def method_not_allowed(e):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8085, debug=True)
+    if MySQLManager.isDarwin:
+        app.run(host='0.0.0.0', port=8084, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=8084, debug=False)

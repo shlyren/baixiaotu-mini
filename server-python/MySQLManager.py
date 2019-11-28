@@ -5,6 +5,8 @@ import pymysql
 import json
 import platform
 
+isDarwin = False
+isLinux = False
 
 def mysql_config_path():
     """
@@ -15,8 +17,10 @@ def mysql_config_path():
     print('当前平台为：{}'.format(_platform))
     mysql_config = None
     if _platform == 'Darwin':
+        isDarwin = True
         mysql_config = "/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"
     elif _platform == 'Linux':
+        isLinux = True
         mysql_config = "/root/swift/baixiaotu.json"
     else:
         print('请设置mysql配置文件路径')
@@ -28,14 +32,16 @@ def mysql_config_path():
 # 加载mysql 配置文件
 with open(mysql_config_path()) as text:
     config = json.load(text)
-    print(config)
-    if config.has_key('mysql'):
+    if isLinux:
         config = config['mysql']
-        
+    
+    print(config)
     host = config['host']
     user = config['user']
     password = config['password']
     database = config['database']
+
+    print(host, user, password, database)
 
 
 def execute(sql):
