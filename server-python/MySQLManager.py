@@ -29,7 +29,7 @@ def mysql_config_path():
 with open(mysql_config_path()) as text:
     config = json.load(text)
     print(config)
-    if config['mysql']:
+    if config.has_key('mysql'):
         config = config['mysql']
         
     host = config['host']
