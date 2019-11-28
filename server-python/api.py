@@ -4,6 +4,9 @@
 from flask import Flask, request
 import query
 import MySQLManager
+import sys
+
+sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 
@@ -39,7 +42,7 @@ def updateVisits():
         values = request.json
     except:
         values = request.values
-        
+
     _type = values.get('type')
     _id = values.get('id')
     return query.updateVisits(_id, _type)
