@@ -162,8 +162,8 @@ def wrapperResponse(code, message, data):
     :param data: 请求数据
     :return:
     """
-    return {
+    return json.dumps({
         'code': code,
         'message': message,
-        'data': json.dumps(data)
-    }
+        'data': data
+    })
