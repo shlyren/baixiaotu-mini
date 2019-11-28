@@ -37,8 +37,8 @@ def updateVisits():
     values = request.values
     _type = values.get('type')
     _id = values.get('id')
-    print(values)
-    print(request.get_json('type'))
+    print('values',values)
+    print('get_json',request.get_json('type'))
     return query.updateVisits(_id, _type)
 
 
