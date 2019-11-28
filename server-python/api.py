@@ -39,14 +39,9 @@ def updateVisits():
         values = request.json
     except:
         values = request.values
-
-    print('===== praams start =====')
-    print(values)
-    print('===== praams end =====')
-    print(type(values))
-    _type = values['type']
-    _id = values['id']
-    print('===========')
+        
+    _type = values.get('type')
+    _id = values.get('id')
     return query.updateVisits(_id, _type)
 
 
