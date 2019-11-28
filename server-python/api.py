@@ -17,14 +17,14 @@ def mainList():
 # 按类型查询作品
 @app.route('/workslist', methods=['GET'])
 def worksList():
-    _type = request.args.get('type')
+    _type = request.values.get('type')
     return query.worksList(_type)
 
 
 # 搜索
 @app.route('/search', methods=['GET'])
 def search():
-    args = request.args
+    args = request.values
     name = args.get('name', '')
     pageNum = int(args.get('pageNum', '1'))
     pageSize = int(args.get('pageSize', '10'))
@@ -34,17 +34,17 @@ def search():
 # 访问量更新
 @app.route('/calculate/visits', methods=['PUT'])
 def updateVisits():
-    args = request.args
-    _type = args.get('type')
-    _id = args.get('id')
-    print(request.form, request.args)
+    values = request.values
+    _type = values.get('type')
+    _id = values.get('id')
+    
     return query.updateVisits(_id, _type)
 
 
 # 资源反馈
 @app.route('/feedback/resource', methods=['POST'])
 def resourceFeedback():
-    args = request.args
+    args = request.values
     name = args.get('name')
     _id = args.get('resour_id')
     _type = args.get('type')
@@ -53,8 +53,6 @@ def resourceFeedback():
     bili_link = args.get('bili_link')
     mail = args.get('mail')
     return query.resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail)
-
-
 
 @app.route('/')
 def index():
