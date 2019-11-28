@@ -44,8 +44,8 @@ def updateVisits():
     print(values)
     print('===== praams end =====')
     print(type(values))
-    _type = values.get('type')
-    _id = values.get('id')
+    _type = values['type']
+    _id = values['id']
     return query.updateVisits(_id, _type)
 
 
