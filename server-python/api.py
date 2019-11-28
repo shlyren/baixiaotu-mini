@@ -72,7 +72,4 @@ def method_not_allowed(e):
 
 
 if __name__ == '__main__':
-    if MySQLManager.isDarwin:
-        app.run(host='0.0.0.0', port=8084, debug=True)
-    else:
-        app.run(host='0.0.0.0', port=8084, debug=False)
+    app.run(host='0.0.0.0', port=8084, debug=True)
