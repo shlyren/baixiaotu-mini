@@ -40,6 +40,9 @@ def updateVisits():
     print('values', '{}'.format(values))
     print('form', '{}'.format(request.form))
     print('json',request.json)
+
+    print('====headers===')
+    print(request.headers)
     return query.updateVisits(_id, _type)
 
 
