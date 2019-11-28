@@ -39,7 +39,7 @@ def updateVisits():
     _id = values.get('id')
     print('values', '{}'.format(values))
     print('form', '{}'.format(request.form))
-    print('get_json',request.get_json())
+    print('json',request.json)
     return query.updateVisits(_id, _type)
 
 
