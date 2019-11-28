@@ -1,7 +1,6 @@
-# @Time:    2019/11/28 10:27
-# @Author:  yuxiang
-# @File:    MySQLManager.py
-# coding=utf-8
+#!/usr/bin/python
+# coding: utf-8
+
 import pymysql
 import json
 import sys

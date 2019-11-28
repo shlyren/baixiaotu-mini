@@ -1,8 +1,5 @@
-# @Time:    2019/11/27 11:40
-# @Author:  yuxiang
-# @File:    query.py
-
-# -*- coding:UTF-8 -*-
+#!/usr/bin/python
+# coding: utf-8
 
 import MySQLManager
 
