@@ -16,7 +16,7 @@ function MySQLManager()  {
     var sql_config;
     // Mac
     if (osName === 'Darwin') {
-        sql_config = JSON.parse(fs.readFileSync("./sqlconfig.json"));
+        sql_config = JSON.parse(fs.readFileSync("/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"));
     }else if (osName === 'Linux') { // Linux
         sql_config = JSON.parse(fs.readFileSync("/root/swift/baixiaotu.json")).mysql;
     }else { // others

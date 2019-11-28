@@ -5,8 +5,8 @@ App({
   },
   onLaunch: function () {
     this.initHUD()
-    wx.url = function(path) {
-      return `https://api-cc.yuxiang.ren/${path}`
+    wx.url = path => {
+      return `https://api-cc.yuxiang.ren/${path}`.replace('//', '/')
     }
   },
   
@@ -24,7 +24,7 @@ App({
       wx.showLoading({
         title: loading || '加载中...',
         mask: true,
-        success: function () {
+        success: () => {
           if (typeof success != "function") return;
           setTimeout(success, 2000)
         }
@@ -70,7 +70,7 @@ App({
         icon,
         image,
         mask: true,
-        success: function () {
+        success: () => {
           if (typeof success != "function") return;
           setTimeout(success, 2000)
         }

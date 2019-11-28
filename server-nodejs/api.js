@@ -8,7 +8,7 @@ app.disable('x-powered-by');
 // 解析application/json数据
 const jsonParser = bodyParser.json();
 // 解析application/x-www-form-urlencoded数据
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+// const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // 首页数据
 app.get('/mainlist', query.queryMainList);

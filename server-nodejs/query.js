@@ -152,14 +152,15 @@ function reponse(code, message, data) {
     return { code, message, data }
 }
 
+// 模块导出
 module.exports = {
-    queryMainList,
-    queryWorksList,
-    updateVisits,
-    resourceFeedback,
-    querySearch,
-    notFound,
-    SUCCESS_CODE,
-    SQL_ERROR_CODE,
-    API_ERROR_CODE
+    queryMainList, // 首页数据
+    queryWorksList, // 按类型获取全部作品
+    updateVisits, // 更新作品的浏览量
+    resourceFeedback, // 作品资源反馈
+    querySearch, // 搜索
+    notFound, // 接口找不到
+    SUCCESS_CODE, // 成功代码
+    SQL_ERROR_CODE, // 数据库错误代码
+    API_ERROR_CODE // api接口错误
 }
