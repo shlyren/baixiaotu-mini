@@ -11,12 +11,12 @@ def mysql_config_path():
     根据平台查询mysq配置文件
     :return:
     """
-    platform = platform.system()
-    print('当前平台为：{}'.format(platform))
+    _platform = platform.system()
+    print('当前平台为：{}'.format(_platform))
     mysql_config = None
-    if platform == 'Darwin':
+    if _platform == 'Darwin':
         mysql_config = "/Users/yuxiang/Documents/Developer/WeChat/baixiaotu-mini/sqlconfig.json"
-    elif platform == 'Linux':
+    elif _platform == 'Linux':
         mysql_config = "/root/swift/baixiaotu.json"
     else:
         print('请设置mysql配置文件路径')
