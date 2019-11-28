@@ -57,7 +57,7 @@ def resourceFeedback():
 
 @app.route('/')
 def index():
-    return 'This api powered by Python.'
+    return 'This api server powered by Python.'
 
 # 404
 @app.errorhandler(404)
