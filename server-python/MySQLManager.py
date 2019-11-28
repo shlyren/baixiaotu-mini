@@ -18,12 +18,15 @@ def mysql_config_path():
         mysql_config = "/root/swift/baixiaotu.json"
     else:
         print('请设置mysql配置文件路径')
+    
+    print(mysql_config)
     return mysql_config
 
 
 # 加载mysql 配置文件
 with open(mysql_config_path()) as text:
     config = json.load(text)
+    print(config)
     if config['mysql']:
         config = config['mysql']
         
