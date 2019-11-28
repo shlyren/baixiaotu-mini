@@ -44,6 +44,7 @@ def updateVisits():
 @app.route('/feedback/resource', methods=['POST'])
 def resourceFeedback():
     args = request.args
+    print(args)
     name = args.get('name')
     _id = args.get('resour_id')
     _type = args.get('type')

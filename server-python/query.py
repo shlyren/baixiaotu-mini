@@ -101,7 +101,6 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
     :param mail: 详细方式
     :return:
     """
-    print(_id, _type)
     if not _id or not _type:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
