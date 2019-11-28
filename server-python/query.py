@@ -167,6 +167,20 @@ def wrapperResponse(code, message, data):
         'code': code,
         'message': message,
         'data': data
-    })
+    }, cls=CJsonEncoder)
     # 在linux中 直接返回dict 回报 TypeError: 'dict' object is not callable 
     return Response(response, mimetype='application/json')
+
+
+
+from datetime import datetime
+from datetime import date
+
+class CJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime('%Y-%m-%d')
+        else:
+            return json.JSONEncoder.default(self, obj)
