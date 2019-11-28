@@ -5,6 +5,7 @@ from flask import Flask, request
 import query
 import MySQLManager
 import sys
+from imp import reload
 reload(sys)
 sys.setdefaultencoding('utf8')
 
