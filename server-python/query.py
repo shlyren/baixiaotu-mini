@@ -102,14 +102,14 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
     :param mail: 详细方式
     :return:
     """
-    if _id == None or _type == None:
+    if _id == None or _type is None:
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     sql = """
-        insert into t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
-        values
-        ('{}', {}, {}, '{}', '{}', '{}', '{}');
-    """.format(name, _type, _id, message, baidu_link, bili_link, mail)
+            insert into t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
+            values
+            ('{}', {}, {}, '{}', '{}', '{}', '{}');
+        """.format(name, _type, _id, message, baidu_link, bili_link, mail)
 
     return query(sql)
 
@@ -117,6 +117,7 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
 def page_not_found(error, _request):
     """
     404 not found
+    错误的请求地址
     :param _request:
     :param error: 错误信息
     :return:
@@ -126,11 +127,12 @@ def page_not_found(error, _request):
 
 def method_not_allowed(error, _request):
     """
-        405 method not allowed
-        :param _request:
-        :param error: 错误信息
-        :return:
-        """
+    405 method not allowed
+    不支持的请求方式
+    :param _request:
+    :param error: 错误信息
+    :return:
+    """
     return wrapperResponse(405, "the method '{}' was not allowed".format(_request.method), '{}'.format(error))
 
 

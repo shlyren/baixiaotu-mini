@@ -6,7 +6,6 @@ import json
 import platform
 from pymysql.cursors import DictCursor
 
-
 def mysql_config_path():
     """
     根据平台查询mysq配置文件
@@ -75,4 +74,3 @@ def execute(sql):
     conn.close()
 
     return True, result
-

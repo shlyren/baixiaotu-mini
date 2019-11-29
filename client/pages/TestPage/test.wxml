@@ -1,0 +1,3 @@
+<!--pages/TestPage/test.wxml-->
+
+<button bindtap="callCloudFunc">调用云函数</button>
