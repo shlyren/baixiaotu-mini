@@ -8,7 +8,7 @@ from pymysql.cursors import DictCursor
 
 def mysql_config_path():
     """
-    根据平台查询mysq配置文件
+    根据平台查询mysql配置文件
     :return:
     """
     _platform = platform.system()

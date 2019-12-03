@@ -17,7 +17,7 @@ Page({
   },
   callCloudFunc: function() {
     wx.cloud.callFunction({
-      name: 'plus',
+      name: 'request',
       data: {
         num1: 1,
         num2: 2

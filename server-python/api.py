@@ -48,6 +48,7 @@ def updateVisits():
 
     _type = values.get('type')
     _id = values.get('id')
+    
     return query.updateVisits(_id, _type)
 
 
@@ -66,6 +67,7 @@ def resourceFeedback():
     baidu_link = args.get('baidu_link')
     bili_link = args.get('bili_link')
     mail = args.get('mail')
+
     return query.resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail)
 
 @app.route('/')

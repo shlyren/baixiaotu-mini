@@ -4,6 +4,7 @@ App({
     
   },
   onLaunch: function () {
+    wx.cloud.init()
     this.initHUD()
     wx.url = path => {
       return `https://api-cc.yuxiang.ren/${path}`.replace('.ren//', '.ren/')

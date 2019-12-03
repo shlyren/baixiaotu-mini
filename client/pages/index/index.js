@@ -50,13 +50,18 @@ Page({
   // 加载首页主要数据
   loadMainData: function (callback) {
     wx.hud.loading()
-    wx.request({
-      url: wx.url('mainlist'),
-      method: 'GET',
+    // 云函数方式请求
+    // 用此方法可以避免 开发者后台配置合法域名
+    // 也就是说未备案，或者非https url 也可以使用了
+    wx.cloud.callFunction({
+      name: 'request',
+      data: {
+        url: 'mainlist'
+      },
       success: function (res) {
         wx.hud.hide()
         if (typeof callback == "function") {
-          const { data: mainData, code, message } = res.data
+          const { data: mainData, code, message } = res.result
           if (code == 200) {
             callback(mainData)
           } else {
@@ -65,13 +70,50 @@ Page({
         }
       },
       fail: function (res) {
-
         console.log(res.errMsg)
         wx.hud.error(res.errMsg)
       },
-      complete: function() {
+      complete: function () {
         wx.stopPullDownRefresh()
       }
     })
+    // .then(({ result }) => {
+    //   wx.stopPullDownRefresh()
+    //   wx.hud.hide()
+    //   if (typeof callback == "function") {
+    //     const { data: mainData, code, message } = result
+    //     if (code == 200) {
+    //       callback(mainData)
+    //     } else {
+    //       wx.hud.error(message)
+    //     }
+    //   }
+    // }).catch (error => {
+    //   wx.hud.error(res.errMsg)
+    // })
+
+  // request 请求
+    // wx.request({
+    //   url: wx.url('mainlist'),
+    //   method: 'GET',
+    //   success: function (res) {
+    //     wx.hud.hide()
+    //     if (typeof callback == "function") {
+    //       const { data: mainData, code, message } = res.data
+    //       if (code == 200) {
+    //         callback(mainData)
+    //       } else {
+    //         wx.hud.error(message)
+    //       }
+    //     }
+    //   },
+    //   fail: function (res) {
+    //     console.log(res.errMsg)
+    //     wx.hud.error(res.errMsg)
+    //   },
+    //   complete: function() {
+    //     wx.stopPullDownRefresh()
+    //   }
+    // })
   },
 })
