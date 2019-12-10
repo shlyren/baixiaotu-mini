@@ -50,9 +50,11 @@ Page({
   // 加载首页主要数据
   loadMainData: function (callback) {
     wx.hud.loading()
-    // 云函数方式请求
-    // 用此方法可以避免 开发者后台配置合法域名
-    // 也就是说未备案，或者非https url 也可以使用了
+    /**
+     * 云函数方式请求
+     * 用此方法可以避免 开发者后台配置合法域名
+     * 也就是说未备案，或者非https url 也可以使用了
+     */
     wx.cloud.callFunction({
       name: 'request',
       data: {

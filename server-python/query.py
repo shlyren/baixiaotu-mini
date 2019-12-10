@@ -15,8 +15,8 @@ def mainList():
     """
     获取首页数据
     """
-    result_0 = MySQLManager.execute("select * from t_television order by visits_count desc limit 6;")
-    result_1 = MySQLManager.execute("select * from t_television_cut order by visits_count desc limit 6;")
+    result_0 = MySQLManager.execute("SELECT * FROM t_television ORDER BY visits_count DESC LIMIT 6;")
+    result_1 = MySQLManager.execute("SELECT * FROM t_television_cut ORDER BY visits_count DESC LIMIT 6;")
 
     if result_0[0] and result_1[0]:
         return wrapperResult((True, [
@@ -45,7 +45,7 @@ def worksList(_type=None):
         index = int(_type)
     finally:
         if -1 < index < 2:
-            return query("select * from {} order by visits_count desc;".format(tableNames[index]))
+            return query("SELECT * FROM {} ORDER BY visits_count DESC;".format(tableNames[index]))
         else:
             return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
@@ -60,9 +60,9 @@ def search(name='', pageNum=1, pageSize=10):
     """
     start = (pageNum - 1) * pageSize
     sql = """
-        select * from t_television where title like '%{}%' 
+        SELECT * FROM t_television WHERE title LIKE '%{}%' 
         union 
-        select * from t_television_cut where title like '%{}%' order by visits_count desc limit {},{};
+        SELECT * FROM t_television_cut WHERE title LIKE '%{}%' ORDER BY visits_count DESC LIMIT {},{};
     """.format(name, name, start, pageSize)
     return query(sql)
 
@@ -82,9 +82,9 @@ def updateVisits(_id, _type):
     table_name = tableNames[int(_type)]
 
     sql = """
-        update {} 
-        set visits_count = (select visits_count from (select visits_count from {} where id = {} ) as T ) + 1 
-        where id = {};
+        UPDATE {} 
+        SET visits_count = visits_count + 1 
+        WHERE id = {};
     """.format(table_name, table_name, _id, _id)
 
     return query(sql)
@@ -106,8 +106,8 @@ def resourceFeedback(name, _id, _type, message, baidu_link, bili_link, mail):
         return wrapperResponse(API_ERROR_CODE, '无效的参数', None)
 
     sql = """
-            insert into t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
-            values
+            INSERT INTO t_television_link ( name, type, resour_id, message, baidu_link, bili_link, mail ) 
+            VALUES
             ('{}', {}, {}, '{}', '{}', '{}', '{}');
         """.format(name, _type, _id, message, baidu_link, bili_link, mail)
 

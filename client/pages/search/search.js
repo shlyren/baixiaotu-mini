@@ -72,6 +72,7 @@ Page({
         if (code == 200) {
           const { result, pageSize } = resultData
           wx.hud.hide()
+          const { items } = this.data;
           let data = {
             items: this.data.items.concat(result),
             pageNum: pageNum + 1,

@@ -62,15 +62,18 @@ def execute(sql):
         count = cursor.execute(sql)
         print('查询到 {} 条数据'.format(count))
         result = cursor.fetchall()
+        # 涉及写操作注意要提交
+        conn.commit()
+
+        # 关闭连接
+        cursor.close()
+        conn.close()
+
+        return True, result
     except Exception as e:
         print(e)
+
+        # 关闭连接
+        cursor.close()
+        conn.close()
         return False, '{}'.format(e)
-
-    # 涉及写操作注意要提交
-    conn.commit()
-
-    # 关闭连接
-    cursor.close()
-    conn.close()
-
-    return True, result

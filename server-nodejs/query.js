@@ -11,7 +11,7 @@ const API_ERROR_CODE = -1; // 请求错误
 // 查询首页数据
 function queryMainList(_, res) {
     
-    mysqlManager.query('SELECT * FROM t_television order by visits_count desc limit 6;',  (error, results) => {
+    mysqlManager.query('SELECT * FROM t_television ORDER BY visits_count DESC LIMIT 6;',  (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
             return;
@@ -21,7 +21,7 @@ function queryMainList(_, res) {
             type: 0,
             items: results,
         }
-        mysqlManager.query('SELECT * FROM t_television_cut order by visits_count desc limit 6;', (error, results) => {
+        mysqlManager.query('SELECT * FROM t_television_cut ORDER BY visits_count DESC LIMIT 6;', (error, results) => {
             if (error) {
                 res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
                 return;
@@ -50,7 +50,7 @@ function queryWorksList(req, res) {
         return;
     }
 
-    mysqlManager.query(`SELECT * FROM ${tableName} order by visits_count desc;`, (error, results) => {
+    mysqlManager.query(`SELECT * FROM ${tableName} ORDER BY visits_count DESC;`, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null));
         }else {
@@ -69,7 +69,7 @@ function updateVisits(req, res) {
         return
     }
     
-    const sql = `UPDATE ${tableName} SET visits_count = (SELECT visits_count FROM (SELECT visits_count FROM ${tableName} WHERE id = ${id} ) as T ) + 1 WHERE id = ${id};`
+    const sql = `UPDATE ${tableName} SET visits_count = visits_count + 1 WHERE id = ${id};`
     mysqlManager.query(sql, (error, results) => {
         if (error) {
             res.jsonp(reponse(SQL_ERROR_CODE, error.code, null))
@@ -123,8 +123,9 @@ function querySearch(req, res) {
 
     const start = (pageNum - 1) * pageSize
 
-    const sql = `SELECT * FROM t_television WHERE title like '%${name}%' UNION
-                 SELECT * FROM t_television_cut WHERE title like '%${name}%' ORDER BY visits_count desc limit ${start},${pageSize};`
+    const sql = `SELECT * FROM t_television WHERE title LIKE '%${name}%' 
+                 UNION
+                 SELECT * FROM t_television_cut WHERE title LIKE '%${name}%' ORDER BY visits_count DESC LIMIT ${start},${pageSize};`
 
     console.log(sql)
 
